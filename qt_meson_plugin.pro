@@ -1,12 +1,12 @@
-DEFINES += MYPLUGIN_LIBRARY
+DEFINES += QT_MESON_PLUGIN_LIBRARY
 
-# MyPlugin files
+# qt_meson_plugin files
 
-SOURCES += mypluginplugin.cpp
+SOURCES += qt_meson_pluginplugin.cpp
 
-HEADERS += mypluginplugin.h \
-        myplugin_global.h \
-        mypluginconstants.h
+HEADERS += qt_meson_pluginplugin.h \
+        qt_meson_plugin_global.h \
+        qt_meson_pluginconstants.h
 
 # Qt Creator linking
 
@@ -32,7 +32,7 @@ USE_USER_DESTDIR = yes
 ###### <dirname>_dependencies.pri, where <dirname> is the name of the directory containing the
 ###### plugin's sources.
 
-QTC_PLUGIN_NAME = MyPlugin
+QTC_PLUGIN_NAME = qt_meson_plugin
 QTC_LIB_DEPENDS += \
     # nothing here at this time
 

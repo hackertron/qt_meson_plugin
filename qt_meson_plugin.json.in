@@ -1,11 +1,11 @@
 {
-    \"Name\" : \"MyPlugin\",
+    \"Name\" : \"qt_meson_plugin\",
     \"Version\" : \"0.0.1\",
     \"CompatVersion\" : \"0.0.1\",
-    \"Vendor\" : \"MyCompany\",
+    \"Vendor\" : \"qt\",
     \"Copyright\" : \"(C) MyCompany\",
     \"License\" : \"Put your license information here\",
-    \"Description\" : \"Put a short description of your plugin here\",
-    \"Url\" : \"http://www.mycompany.com\",
+    \"Description\" : \"provides meson build system support for Qt creator\",
+    \"Url\" : \"github.com/hackertron\",
     $$dependencyList
 }

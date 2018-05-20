@@ -1,20 +1,20 @@
 #pragma once
 
-#include "myplugin_global.h"
+#include "qt_meson_plugin_global.h"
 
 #include <extensionsystem/iplugin.h>
 
-namespace MyPlugin {
+namespace qt_meson_plugin {
 namespace Internal {
 
-class MyPluginPlugin : public ExtensionSystem::IPlugin
+class qt_meson_pluginPlugin : public ExtensionSystem::IPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QtCreatorPlugin" FILE "MyPlugin.json")
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QtCreatorPlugin" FILE "qt_meson_plugin.json")
 
 public:
-    MyPluginPlugin();
-    ~MyPluginPlugin();
+    qt_meson_pluginPlugin();
+    ~qt_meson_pluginPlugin();
 
     bool initialize(const QStringList &arguments, QString *errorString);
     void extensionsInitialized();
@@ -25,4 +25,4 @@ private:
 };
 
 } // namespace Internal
-} // namespace MyPlugin
+} // namespace qt_meson_plugin
