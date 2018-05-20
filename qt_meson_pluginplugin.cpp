@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QMainWindow>
 #include <QMenu>
+#include <QDebug>
 
 namespace qt_meson_plugin {
 namespace Internal {
@@ -73,6 +74,9 @@ void qt_meson_pluginPlugin::triggerAction()
     QMessageBox::information(Core::ICore::mainWindow(),
                              tr("Action Triggered"),
                              tr("This is an action from qt_meson_plugin."));
+    qDebug()<<"meson introspect begins here";
+
+
 }
 
 } // namespace Internal
