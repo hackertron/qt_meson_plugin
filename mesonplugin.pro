@@ -1,5 +1,7 @@
 DEFINES += MESONPLUGIN_LIBRARY
 
+QT += core
+
 # mesonplugin files
 
 SOURCES += mesonpluginplugin.cpp

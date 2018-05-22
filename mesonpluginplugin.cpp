@@ -13,6 +13,11 @@
 #include <QMainWindow>
 #include <QMenu>
 
+// no such file or directory
+//#include <QtcProcess>
+#include <QProcess>
+#include <QObject>
+
 namespace mesonplugin {
 namespace Internal {
 
@@ -73,6 +78,16 @@ void mesonpluginPlugin::triggerAction()
     QMessageBox::information(Core::ICore::mainWindow(),
                              tr("Action Triggered"),
                              tr("This is an action from mesonplugin."));
+
+    QObject *parent = nullptr;
+    QString program = "meson";
+    QStringList args = {"introspect", "--targets", "/home/nightmare/practice/meson/builddir/"};
+
+    QProcess *mesonProcess = new QProcess(parent);
+    mesonProcess->setProcessChannelMode(QProcess::ForwardedChannels);
+    mesonProcess->start(program,args);
+
+
 }
 
 } // namespace Internal
