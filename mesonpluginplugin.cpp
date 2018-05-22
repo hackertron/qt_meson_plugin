@@ -1,5 +1,5 @@
-#include "qt_meson_pluginplugin.h"
-#include "qt_meson_pluginconstants.h"
+#include "mesonpluginplugin.h"
+#include "mesonpluginconstants.h"
 
 #include <coreplugin/icore.h>
 #include <coreplugin/icontext.h>
@@ -12,23 +12,22 @@
 #include <QMessageBox>
 #include <QMainWindow>
 #include <QMenu>
-#include <QDebug>
 
-namespace qt_meson_plugin {
+namespace mesonplugin {
 namespace Internal {
 
-qt_meson_pluginPlugin::qt_meson_pluginPlugin()
+mesonpluginPlugin::mesonpluginPlugin()
 {
     // Create your members
 }
 
-qt_meson_pluginPlugin::~qt_meson_pluginPlugin()
+mesonpluginPlugin::~mesonpluginPlugin()
 {
     // Unregister objects from the plugin manager's object pool
     // Delete members
 }
 
-bool qt_meson_pluginPlugin::initialize(const QStringList &arguments, QString *errorString)
+bool mesonpluginPlugin::initialize(const QStringList &arguments, QString *errorString)
 {
     // Register objects in the plugin manager's object pool
     // Load settings
@@ -40,28 +39,28 @@ bool qt_meson_pluginPlugin::initialize(const QStringList &arguments, QString *er
     Q_UNUSED(arguments)
     Q_UNUSED(errorString)
 
-    auto action = new QAction(tr("qt_meson_plugin Action"), this);
+    auto action = new QAction(tr("mesonplugin Action"), this);
     Core::Command *cmd = Core::ActionManager::registerAction(action, Constants::ACTION_ID,
                                                              Core::Context(Core::Constants::C_GLOBAL));
     cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl+Alt+Meta+A")));
-    connect(action, &QAction::triggered, this, &qt_meson_pluginPlugin::triggerAction);
+    connect(action, &QAction::triggered, this, &mesonpluginPlugin::triggerAction);
 
     Core::ActionContainer *menu = Core::ActionManager::createMenu(Constants::MENU_ID);
-    menu->menu()->setTitle(tr("qt_meson_plugin"));
+    menu->menu()->setTitle(tr("mesonplugin"));
     menu->addAction(cmd);
     Core::ActionManager::actionContainer(Core::Constants::M_TOOLS)->addMenu(menu);
 
     return true;
 }
 
-void qt_meson_pluginPlugin::extensionsInitialized()
+void mesonpluginPlugin::extensionsInitialized()
 {
     // Retrieve objects from the plugin manager's object pool
     // In the extensionsInitialized function, a plugin can be sure that all
     // plugins that depend on it are completely initialized.
 }
 
-ExtensionSystem::IPlugin::ShutdownFlag qt_meson_pluginPlugin::aboutToShutdown()
+ExtensionSystem::IPlugin::ShutdownFlag mesonpluginPlugin::aboutToShutdown()
 {
     // Save settings
     // Disconnect from signals that are not needed during shutdown
@@ -69,15 +68,12 @@ ExtensionSystem::IPlugin::ShutdownFlag qt_meson_pluginPlugin::aboutToShutdown()
     return SynchronousShutdown;
 }
 
-void qt_meson_pluginPlugin::triggerAction()
+void mesonpluginPlugin::triggerAction()
 {
     QMessageBox::information(Core::ICore::mainWindow(),
                              tr("Action Triggered"),
-                             tr("This is an action from qt_meson_plugin."));
-    qDebug()<<"meson introspect begins here";
-
-
+                             tr("This is an action from mesonplugin."));
 }
 
 } // namespace Internal
-} // namespace qt_meson_plugin
+} // namespace mesonplugin
