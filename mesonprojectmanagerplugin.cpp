@@ -1,5 +1,5 @@
-#include "mesonpluginplugin.h"
-#include "mesonpluginconstants.h"
+#include "mesonprojectmanagerplugin.h"
+#include "mesonprojectmanagerconstants.h"
 
 #include <coreplugin/icore.h>
 #include <coreplugin/icontext.h>
@@ -13,27 +13,26 @@
 #include <QMainWindow>
 #include <QMenu>
 
-
-#include <utils/qtcprocess.h>
 #include <QProcess>
-#include <QObject>
+#include <utils/qtcprocess.h>
 #include <QDebug>
+#include <QObject>
 
-namespace mesonplugin {
+namespace MesonProjectManager {
 namespace Internal {
 
-mesonpluginPlugin::mesonpluginPlugin()
+MesonProjectManagerPlugin::MesonProjectManagerPlugin()
 {
     // Create your members
 }
 
-mesonpluginPlugin::~mesonpluginPlugin()
+MesonProjectManagerPlugin::~MesonProjectManagerPlugin()
 {
     // Unregister objects from the plugin manager's object pool
     // Delete members
 }
 
-bool mesonpluginPlugin::initialize(const QStringList &arguments, QString *errorString)
+bool MesonProjectManagerPlugin::initialize(const QStringList &arguments, QString *errorString)
 {
     // Register objects in the plugin manager's object pool
     // Load settings
@@ -45,28 +44,28 @@ bool mesonpluginPlugin::initialize(const QStringList &arguments, QString *errorS
     Q_UNUSED(arguments)
     Q_UNUSED(errorString)
 
-    auto action = new QAction(tr("mesonplugin Action"), this);
+    auto action = new QAction(tr("MesonProjectManager Action"), this);
     Core::Command *cmd = Core::ActionManager::registerAction(action, Constants::ACTION_ID,
                                                              Core::Context(Core::Constants::C_GLOBAL));
     cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl+Alt+Meta+A")));
-    connect(action, &QAction::triggered, this, &mesonpluginPlugin::triggerAction);
+    connect(action, &QAction::triggered, this, &MesonProjectManagerPlugin::triggerAction);
 
     Core::ActionContainer *menu = Core::ActionManager::createMenu(Constants::MENU_ID);
-    menu->menu()->setTitle(tr("mesonplugin"));
+    menu->menu()->setTitle(tr("MesonProjectManager"));
     menu->addAction(cmd);
     Core::ActionManager::actionContainer(Core::Constants::M_TOOLS)->addMenu(menu);
 
     return true;
 }
 
-void mesonpluginPlugin::extensionsInitialized()
+void MesonProjectManagerPlugin::extensionsInitialized()
 {
     // Retrieve objects from the plugin manager's object pool
     // In the extensionsInitialized function, a plugin can be sure that all
     // plugins that depend on it are completely initialized.
 }
 
-ExtensionSystem::IPlugin::ShutdownFlag mesonpluginPlugin::aboutToShutdown()
+ExtensionSystem::IPlugin::ShutdownFlag MesonProjectManagerPlugin::aboutToShutdown()
 {
     // Save settings
     // Disconnect from signals that are not needed during shutdown
@@ -74,23 +73,20 @@ ExtensionSystem::IPlugin::ShutdownFlag mesonpluginPlugin::aboutToShutdown()
     return SynchronousShutdown;
 }
 
-void mesonpluginPlugin::triggerAction()
+void MesonProjectManagerPlugin::triggerAction()
 {
     QMessageBox::information(Core::ICore::mainWindow(),
                              tr("Action Triggered"),
-                             tr("This is an action from mesonplugin."));
+                             tr("This is an action from MesonProjectManager."));
+
+    const QString meson = "/usr/local/bin/meson";
+    const QStringList args = {"introspect", "--targets", "/home/nightmare/practice/meson/builddir"};
 
     QObject *parent = nullptr;
-    const QString program = "meson";
-    const QStringList args = {"introspect", "--targets", "/home/nightmare/practice/meson/builddir/"};
-    qDebug()<<args;
-
-    QProcess *mesonProcess = new QProcess(parent);
-    mesonProcess->setProcessChannelMode(QProcess::ForwardedChannels);
-    mesonProcess->start(program,args);
-
-
+    QProcess *program = new QProcess(parent);
+    program->setProcessChannelMode(QProcess::ForwardedChannels);
+    program->start(meson,args);
 }
 
 } // namespace Internal
-} // namespace mesonplugin
+} // namespace MesonProjectManager

@@ -1,11 +1,11 @@
 {
-    \"Name\" : \"mesonplugin\",
+    \"Name\" : \"MesonProjectManager\",
     \"Version\" : \"0.0.1\",
     \"CompatVersion\" : \"0.0.1\",
     \"Vendor\" : \"Qt\",
     \"Copyright\" : \"(C) MyCompany\",
     \"License\" : \"Put your license information here\",
-    \"Description\" : \"meson plugin for Qt creator\",
+    \"Description\" : \"MesonProjectManager plugin to handle meson projects\",
     \"Url\" : \"https://github.com/hackertron\",
     $$dependencyList
 }

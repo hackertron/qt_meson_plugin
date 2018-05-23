@@ -1,14 +1,12 @@
-DEFINES += MESONPLUGIN_LIBRARY
+DEFINES += MESONPROJECTMANAGER_LIBRARY
 
-QT += core
+# MesonProjectManager files
 
-# mesonplugin files
+SOURCES += mesonprojectmanagerplugin.cpp
 
-SOURCES += mesonpluginplugin.cpp
-
-HEADERS += mesonpluginplugin.h \
-        mesonplugin_global.h \
-        mesonpluginconstants.h
+HEADERS += mesonprojectmanagerplugin.h \
+        mesonprojectmanager_global.h \
+        mesonprojectmanagerconstants.h
 
 # Qt Creator linking
 
@@ -34,7 +32,7 @@ USE_USER_DESTDIR = yes
 ###### <dirname>_dependencies.pri, where <dirname> is the name of the directory containing the
 ###### plugin's sources.
 
-QTC_PLUGIN_NAME = mesonplugin
+QTC_PLUGIN_NAME = MesonProjectManager
 QTC_LIB_DEPENDS += \
     # nothing here at this time
 
