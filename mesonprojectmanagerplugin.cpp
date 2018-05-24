@@ -13,10 +13,10 @@
 #include <QMainWindow>
 #include <QMenu>
 
-#include <QProcess>
 #include <utils/qtcprocess.h>
 #include <QDebug>
 #include <QObject>
+#include <QString>
 
 namespace MesonProjectManager {
 namespace Internal {
@@ -80,12 +80,30 @@ void MesonProjectManagerPlugin::triggerAction()
                              tr("This is an action from MesonProjectManager."));
 
     const QString meson = "/usr/local/bin/meson";
-    const QStringList args = {"introspect", "--targets", "/home/nightmare/practice/meson/builddir"};
+    //const QStringList args = {"introspect", "--targets", "/home/nightmare/practice/meson/builddir"};
+    const QString args = "introspect --targets /home/nightmare/practice/meson/builddir/";
 
     QObject *parent = nullptr;
-    QProcess *program = new QProcess(parent);
-    program->setProcessChannelMode(QProcess::ForwardedChannels);
-    program->start(meson,args);
+    Utils::QtcProcess *process = new Utils::QtcProcess(parent);
+
+    //program->setProcessChannelMode(QProcess::ForwardedChannels);
+    process->setCommand(meson, args);
+    process->start();
+
+    int res = process->waitForFinished();
+
+    if ( !res ) {
+        qDebug() << process->errorString();
+
+    }
+    process->waitForFinished();
+    QByteArray output = process->readAllStandardOutput();
+    qDebug() << "reached here \n";
+    qDebug() << output;
+
+    QByteArray error = process->readAllStandardError();
+    qDebug() << error;
+
 }
 
 } // namespace Internal
