@@ -17,6 +17,8 @@
 #include <QDebug>
 #include <QObject>
 #include <QString>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 namespace MesonProjectManager {
 namespace Internal {
@@ -98,8 +100,20 @@ void MesonProjectManagerPlugin::triggerAction()
     }
     process->waitForFinished();
     QByteArray output = process->readAllStandardOutput();
-    qDebug() << "reached here \n";
     qDebug() << output;
+
+    const QJsonDocument doc = QJsonDocument::fromJson(output);
+    qDebug().noquote() << doc;
+    qDebug().noquote() << doc.array();
+    foreach (auto value, doc.array()) {
+        qDebug().noquote() << value;
+        qDebug().noquote() << value.toObject();
+        qDebug().noquote() << value.toObject().value("name");
+        qDebug().noquote() << value.toObject().value("name").toString();
+        qDebug().noquote() << value.toObject().value("installed");
+        qDebug().noquote() << value.toObject().value("installed").toBool();
+    }
+
 
     QByteArray error = process->readAllStandardError();
     qDebug() << error;
