@@ -2,11 +2,13 @@ DEFINES += MESONPROJECTMANAGER_LIBRARY
 
 # MesonProjectManager files
 
-SOURCES += mesonprojectmanagerplugin.cpp
+SOURCES += mesonprojectmanagerplugin.cpp \
+    mesonbuildparser.cpp
 
 HEADERS += mesonprojectmanagerplugin.h \
         mesonprojectmanager_global.h \
-        mesonprojectmanagerconstants.h
+        mesonprojectmanagerconstants.h \
+    mesonbuildparser.h
 
 # Qt Creator linking
 

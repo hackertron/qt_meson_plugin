@@ -108,10 +108,13 @@ void MesonProjectManagerPlugin::triggerAction()
     foreach (auto value, doc.array()) {
         qDebug().noquote() << value;
         qDebug().noquote() << value.toObject();
-        qDebug().noquote() << value.toObject().value("name");
-        qDebug().noquote() << value.toObject().value("name").toString();
-        qDebug().noquote() << value.toObject().value("installed");
-        qDebug().noquote() << value.toObject().value("installed").toBool();
+        //qDebug().noquote() << value.toObject().value("name");
+        qDebug().noquote() << "name : " << value.toObject().value("name").toString();
+        //qDebug().noquote() << value.toObject().value("installed");
+        qDebug().noquote() << "installed : " << value.toObject().value("installed").toBool();
+
+        qDebug().noquote() << "id : " << value.toObject().value("id").toString();
+        qDebug().noquote() << "filename : " << value.toObject().value("filename").toString();
     }
 
 
