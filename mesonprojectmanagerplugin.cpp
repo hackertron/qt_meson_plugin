@@ -13,12 +13,8 @@
 #include <QMainWindow>
 #include <QMenu>
 
-#include <utils/qtcprocess.h>
-#include <QDebug>
-#include <QObject>
-#include <QString>
-#include <QJsonDocument>
-#include <QJsonArray>
+
+#include "mesonbuildparser.h"
 
 namespace MesonProjectManager {
 namespace Internal {
@@ -52,9 +48,16 @@ bool MesonProjectManagerPlugin::initialize(const QStringList &arguments, QString
     cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl+Alt+Meta+A")));
     connect(action, &QAction::triggered, this, &MesonProjectManagerPlugin::triggerAction);
 
+    auto mesoncall = new QAction(tr("meson call"), this);
+    Core::Command *cmd1 = Core::ActionManager::registerAction(mesoncall, Constants::MESON_CALL,Core::Context());
+
+    cmd1->setDefaultKeySequence(QKeySequence(tr("Ctrl+Alt+1")));
+    connect(mesoncall, &QAction::triggered, this, &MesonProjectManagerPlugin::mesoncall);
+
     Core::ActionContainer *menu = Core::ActionManager::createMenu(Constants::MENU_ID);
     menu->menu()->setTitle(tr("MesonProjectManager"));
     menu->addAction(cmd);
+    menu->addAction(cmd1);
     Core::ActionManager::actionContainer(Core::Constants::M_TOOLS)->addMenu(menu);
 
     return true;
@@ -81,45 +84,14 @@ void MesonProjectManagerPlugin::triggerAction()
                              tr("Action Triggered"),
                              tr("This is an action from MesonProjectManager."));
 
-    const QString meson = "/usr/local/bin/meson";
-    //const QStringList args = {"introspect", "--targets", "/home/nightmare/practice/meson/builddir"};
-    const QString args = "introspect --targets /home/nightmare/practice/meson/builddir/";
 
-    QObject *parent = nullptr;
-    Utils::QtcProcess *process = new Utils::QtcProcess(parent);
+}
 
-    //program->setProcessChannelMode(QProcess::ForwardedChannels);
-    process->setCommand(meson, args);
-    process->start();
+void MesonProjectManagerPlugin::mesoncall()
+{
+    MesonBuildParser *meson = new MesonBuildParser();
+    meson->getprojectinfo();
 
-    int res = process->waitForFinished();
-
-    if ( !res ) {
-        qDebug() << process->errorString();
-
-    }
-    process->waitForFinished();
-    QByteArray output = process->readAllStandardOutput();
-    qDebug() << output;
-
-    const QJsonDocument doc = QJsonDocument::fromJson(output);
-    qDebug().noquote() << doc;
-    qDebug().noquote() << doc.array();
-    foreach (auto value, doc.array()) {
-        qDebug().noquote() << value;
-        qDebug().noquote() << value.toObject();
-        //qDebug().noquote() << value.toObject().value("name");
-        qDebug().noquote() << "name : " << value.toObject().value("name").toString();
-        //qDebug().noquote() << value.toObject().value("installed");
-        qDebug().noquote() << "installed : " << value.toObject().value("installed").toBool();
-
-        qDebug().noquote() << "id : " << value.toObject().value("id").toString();
-        qDebug().noquote() << "filename : " << value.toObject().value("filename").toString();
-    }
-
-
-    QByteArray error = process->readAllStandardError();
-    qDebug() << error;
 
 }
 
