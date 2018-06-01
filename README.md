@@ -1,4 +1,4 @@
-# Qt_meson_plugin
+# QtMesonPlugin
 
 
 ## Contribution Guidelines :
