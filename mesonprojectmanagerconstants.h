@@ -6,6 +6,7 @@ namespace Constants {
 const char ACTION_ID[] = "MesonProjectManager.Action";
 const char MESON_CALL[] = "MesonProjectManager.Call";
 const char MENU_ID[] = "MesonProjectManager.Menu";
+const char INTROSPECT_CALL[] = "MesonProjectManager.Introspect";
 
 } // namespace MesonProjectManager
 } // namespace Constants

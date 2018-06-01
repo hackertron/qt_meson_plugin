@@ -4,13 +4,20 @@
 
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QVariantMap>
 
 
 class MesonBuildParser
 {
 public:
     MesonBuildParser();
-    void getprojectinfo();
+    QVariantMap projectInfoResults;
+    QVariantMap introspectResults;
+
+    QString getMesonPath();
+    void getProjectInfo();
+    void getBuildSystemFiles();
+    void getTargetInfo();
 
 };
 

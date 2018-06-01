@@ -4,7 +4,6 @@
 
 #include <extensionsystem/iplugin.h>
 
-#include <QVariantMap>
 
 namespace MesonProjectManager {
 namespace Internal {
@@ -18,7 +17,7 @@ public:
     MesonProjectManagerPlugin();
     ~MesonProjectManagerPlugin();
 
-    QVariantMap mesoninfo;
+
 
     bool initialize(const QStringList &arguments, QString *errorString);
     void extensionsInitialized();

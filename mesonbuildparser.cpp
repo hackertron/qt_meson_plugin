@@ -12,17 +12,21 @@ MesonBuildParser::MesonBuildParser()
 
 }
 
-void MesonBuildParser::getprojectinfo()
+QString MesonBuildParser::getMesonPath()
 {
-    const QString meson = "/usr/local/bin/meson";
-        //const QStringList args = {"introspect", "--targets", "/home/nightmare/practice/meson/builddir"};
-        const QString args = "introspect --targets /home/nightmare/practice/meson/builddir/";
+    // get meson path from user here
+    QString path = "/usr/local/bin/meson";
+    return path;
+}
+
+void MesonBuildParser::getProjectInfo()
+{
+
+        const QString args = "introspect --projectinfo /home/nightmare/practice/meson/builddir/";
 
         QObject *parent = nullptr;
         Utils::QtcProcess *process = new Utils::QtcProcess(parent);
-
-        //program->setProcessChannelMode(QProcess::ForwardedChannels);
-        process->setCommand(meson, args);
+        process->setCommand(getMesonPath(), args);
         process->start();
 
         int res = process->waitForFinished();
@@ -42,21 +46,55 @@ void MesonBuildParser::getprojectinfo()
             qDebug().noquote() << value;
             qDebug().noquote() << value.toObject();
             //qDebug().noquote() << value.toObject().value("name");
-            qDebug().noquote() << "name : " << value.toObject().value("name").toString();
-            //qDebug().noquote() << value.toObject().value("installed");
-            qDebug().noquote() << "installed : " << value.toObject().value("installed").toBool();
 
-            qDebug().noquote() << "id : " << value.toObject().value("id").toString();
-            qDebug().noquote() << "filename : " << value.toObject().value("filename").toString();
+            projectInfoResults["name"] = value.toObject().value("name").toString();
+            projectInfoResults["version"] = value.toObject().value("version").toString();
+            projectInfoResults["subprojects"] = value.toObject().value("subversion");
+
         }
 
 
         QByteArray error = process->readAllStandardError();
         qDebug() << error;
 
-    qDebug() << "meson call here";
+}
 
+void MesonBuildParser::getBuildSystemFiles()
+{
+    // get build system files ( meson.build) here
 
 }
+
+void MesonBuildParser::getTargetInfo()
+{
+    const QString args = "introspect --targets /home/nightmare/practice/meson/builddir/";
+    QObject *parent = nullptr;
+    Utils::QtcProcess process(parent);
+
+    process.setCommand(getMesonPath(), args);
+    process.start();
+
+    int res = process.waitForFinished();
+
+    if( !res ) {
+        qDebug() << process.errorString();
+    }
+
+    process.waitForFinished();
+
+    QByteArray output = process.readAllStandardOutput();
+    qDebug() << output;
+
+    const QJsonDocument doc = QJsonDocument::fromJson(output);
+    foreach ( auto value, doc.array()) {
+        introspectResults["name"] = value.toObject().value("name").toString();
+        introspectResults["filename"] = value.toObject().value("filename").toString();
+        introspectResults["id"] = value.toObject().value("id").toString();
+        introspectResults["type"] = value.toObject().value("type").toString();
+    }
+
+}
+
+
 
 

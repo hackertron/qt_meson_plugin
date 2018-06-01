@@ -90,7 +90,8 @@ void MesonProjectManagerPlugin::triggerAction()
 void MesonProjectManagerPlugin::mesoncall()
 {
     MesonBuildParser *meson = new MesonBuildParser();
-    meson->getprojectinfo();
+    meson->getProjectInfo();
+    meson->getTargetInfo();
 
 
 }
