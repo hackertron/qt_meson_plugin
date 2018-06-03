@@ -92,7 +92,8 @@ void MesonProjectManagerPlugin::mesoncall()
     MesonBuildParser *meson = new MesonBuildParser();
     meson->getProjectInfo();
     meson->getTargetInfo();
-
+    meson->getBuildSystemFiles();
+    delete meson;
 
 }
 

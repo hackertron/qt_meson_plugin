@@ -62,6 +62,16 @@ void MesonBuildParser::getProjectInfo()
 void MesonBuildParser::getBuildSystemFiles()
 {
     // get build system files ( meson.build) here
+    const QString args = "introspect --buildsystem-files /home/nightmare/practice/meson/builddir";
+    QObject *parent = nullptr;
+    Utils::QtcProcess process(parent);
+
+    process.setCommand(getMesonPath(),args);
+    process.start();
+    process.waitForFinished();
+
+    QByteArray result  = process.readAllStandardOutput();
+    qDebug() << result;
 
 }
 
