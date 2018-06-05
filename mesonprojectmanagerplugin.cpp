@@ -8,10 +8,14 @@
 #include <coreplugin/actionmanager/actioncontainer.h>
 #include <coreplugin/coreconstants.h>
 
+#include <utils/mimetypes/mimedatabase.h>
+
+
 #include <QAction>
 #include <QMessageBox>
 #include <QMainWindow>
 #include <QMenu>
+#include <QFile>
 
 
 #include "mesonbuildparser.h"
@@ -90,6 +94,7 @@ void MesonProjectManagerPlugin::triggerAction()
 void MesonProjectManagerPlugin::mesoncall()
 {
     MesonBuildParser *meson = new MesonBuildParser();
+    meson->getProjectPath();
     meson->getProjectInfo();
     meson->getTargetInfo();
     meson->getBuildSystemFiles();

@@ -8,8 +8,10 @@
 
 class MesonProject : public ProjectExplorer::Project
 {
+    Q_OBJECT
+
 public:
-    MesonProject();
+    explicit MesonProject(const Utils::FileName &fileName);
 };
 
 #endif // MESONPROJECT_H

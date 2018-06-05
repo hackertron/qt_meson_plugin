@@ -13,8 +13,12 @@ public:
     MesonBuildParser();
     QVariantMap projectInfoResults;
     QVariantMap introspectResults;
+    QString projectPath;
+
+
 
     QString getMesonPath();
+    QString getProjectPath();
     void getProjectInfo();
     void getBuildSystemFiles();
     void getTargetInfo();

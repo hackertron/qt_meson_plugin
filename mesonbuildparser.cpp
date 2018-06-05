@@ -6,6 +6,9 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QFile>
+#include <QFileDialog>
+#include <QDir>
 
 MesonBuildParser::MesonBuildParser()
 {
@@ -17,6 +20,15 @@ QString MesonBuildParser::getMesonPath()
     // get meson path from user here
     QString path = "/usr/local/bin/meson";
     return path;
+}
+
+QString MesonBuildParser::getProjectPath()
+{
+    // select project here
+    QString projectPath = "/home/nightmare/practice/meson/";
+
+    return projectPath;
+
 }
 
 void MesonBuildParser::getProjectInfo()
@@ -72,6 +84,8 @@ void MesonBuildParser::getBuildSystemFiles()
 
     QByteArray result  = process.readAllStandardOutput();
     qDebug() << result;
+
+
 
 }
 
