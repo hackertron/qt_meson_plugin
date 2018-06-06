@@ -25,7 +25,7 @@
         \"    <mime-type type=\'text/x-meson-project\'>\",
         \"        <sub-class-of type=\'text/plain\'/>\",
         \"        <comment>Meson project file</comment>\",
-        \"        <glob pattern=\'*.build\'/>\",
+        \"        <glob pattern=\'meson.build\'/>\",
         \"    </mime-type>\",
 
         \"</mime-info>\"
