@@ -22,23 +22,24 @@
 ** be met: https://www.gnu.org/licenses/gpl-3.0.html.
 **
 ****************************************************************************/
-#ifndef MESONBUILDPARSER_H
-#define MESONBUILDPARSER_H
+#ifndef MESONCALL_H
+#define MESONCALL_H
 
 
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QVariantMap>
+#include <QObject>
 
-
-class MesonBuildParser
+class MesonCall : public QObject
 {
+    Q_OBJECT
+
 public:
-    MesonBuildParser();
+    explicit MesonCall(QObject *parent = 0);
     QVariantMap projectInfoResults;
     QVariantMap introspectResults;
     QString projectPath;
-
 
 
     QString getMesonPath();
@@ -47,6 +48,13 @@ public:
     void getBuildSystemFiles();
     void getTargetInfo();
 
+signals:
+    void mesonProcess();
+
+public slots:
+    void mesonProcessComplete();
+
+
 };
 
-#endif // MESONBUILDPARSER_H
+#endif // MESONCALL_H

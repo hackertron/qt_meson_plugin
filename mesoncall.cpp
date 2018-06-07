@@ -1,4 +1,4 @@
-#include "mesonbuildparser.h"
+#include "mesoncall.h"
 #include <utils/qtcprocess.h>
 #include <QDebug>
 #include <QObject>
@@ -10,19 +10,24 @@
 #include <QFileDialog>
 #include <QDir>
 
-MesonBuildParser::MesonBuildParser()
+MesonCall::MesonCall(QObject *parent) : QObject(parent)
 {
 
 }
 
-QString MesonBuildParser::getMesonPath()
+void MesonCall::mesonProcessComplete()
+{
+    qDebug() << "process complete";
+}
+
+QString MesonCall::getMesonPath()
 {
     // get meson path from user here
     QString path = "/usr/local/bin/meson";
     return path;
 }
 
-QString MesonBuildParser::getProjectPath()
+QString MesonCall::getProjectPath()
 {
     // select project here
     QString projectPath = "/home/nightmare/practice/meson/";
@@ -31,7 +36,7 @@ QString MesonBuildParser::getProjectPath()
 
 }
 
-void MesonBuildParser::getProjectInfo()
+void MesonCall::getProjectInfo()
 {
 
         const QString args = "introspect --projectinfo /home/nightmare/practice/meson/builddir/";
@@ -41,12 +46,15 @@ void MesonBuildParser::getProjectInfo()
         process->setCommand(getMesonPath(), args);
         process->start();
 
-        int res = process->waitForFinished();
+        emit mesonProcess();
 
-        if ( !res ) {
-            qDebug() << process->errorString();
+//        int res = process->waitForFinished();
 
-        }
+//        if ( !res ) {
+//            qDebug() << process->errorString();
+
+//        }
+
         process->waitForFinished();
         QByteArray output = process->readAllStandardOutput();
         qDebug() << output;
@@ -71,7 +79,7 @@ void MesonBuildParser::getProjectInfo()
 
 }
 
-void MesonBuildParser::getBuildSystemFiles()
+void MesonCall::getBuildSystemFiles()
 {
     // get build system files ( meson.build) here
     const QString args = "introspect --buildsystem-files /home/nightmare/practice/meson/builddir";
@@ -89,7 +97,7 @@ void MesonBuildParser::getBuildSystemFiles()
 
 }
 
-void MesonBuildParser::getTargetInfo()
+void MesonCall::getTargetInfo()
 {
     const QString args = "introspect --targets /home/nightmare/practice/meson/builddir/";
     QObject *parent = nullptr;
@@ -118,7 +126,6 @@ void MesonBuildParser::getTargetInfo()
     }
 
 }
-
 
 
 

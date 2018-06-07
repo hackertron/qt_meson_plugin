@@ -40,9 +40,9 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QFile>
+#include <QObject>
 
-
-#include "mesonbuildparser.h"
+#include "mesoncall.h"
 
 namespace MesonProjectManager {
 namespace Internal {
@@ -117,7 +117,9 @@ void MesonProjectManagerPlugin::triggerAction()
 
 void MesonProjectManagerPlugin::mesoncall()
 {
-    MesonBuildParser *meson = new MesonBuildParser();
+    MesonCall *meson = new MesonCall();
+    connect(meson,SIGNAL(mesonProcess()),meson,SLOT(mesonProcessComplete()));
+
     meson->getProjectPath();
     meson->getProjectInfo();
     meson->getTargetInfo();
