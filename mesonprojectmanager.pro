@@ -3,12 +3,12 @@ DEFINES += MESONPROJECTMANAGER_LIBRARY
 # MesonProjectManager files
 
 SOURCES += mesonprojectmanagerplugin.cpp \
-    mesonbuildparser.cpp
+    mesoncall.cpp
 
 HEADERS += mesonprojectmanagerplugin.h \
         mesonprojectmanager_global.h \
         mesonprojectmanagerconstants.h \
-    mesonbuildparser.h
+    mesoncall.h
 
 # Qt Creator linking
 
@@ -47,3 +47,6 @@ QTC_PLUGIN_RECOMMENDS += \
 ###### End _dependencies.pri contents ######
 
 include($$IDE_SOURCE_TREE/src/qtcreatorplugin.pri)
+
+DISTFILES += \
+    Meson.json.in
