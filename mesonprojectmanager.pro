@@ -10,6 +10,9 @@ HEADERS += mesonprojectmanagerplugin.h \
         mesonprojectmanagerconstants.h \
     mesoncall.h
 
+OBJECTS_DIR = debug/obj
+MOC_DIR = debug/moc
+
 # Qt Creator linking
 
 ## Either set the IDE_SOURCE_TREE when running qmake,

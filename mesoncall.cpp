@@ -48,13 +48,6 @@ void MesonCall::getProjectInfo()
 
         emit mesonProcess();
 
-//        int res = process->waitForFinished();
-
-//        if ( !res ) {
-//            qDebug() << process->errorString();
-
-//        }
-
         process->waitForFinished();
         QByteArray output = process->readAllStandardOutput();
         qDebug() << output;
@@ -84,13 +77,13 @@ void MesonCall::getBuildSystemFiles()
     // get build system files ( meson.build) here
     const QString args = "introspect --buildsystem-files /home/nightmare/practice/meson/builddir";
     QObject *parent = nullptr;
-    Utils::QtcProcess process(parent);
+    Utils::QtcProcess *process = new Utils::QtcProcess(parent);
 
-    process.setCommand(getMesonPath(),args);
-    process.start();
-    process.waitForFinished();
+    process->setCommand(getMesonPath(),args);
+    process->start();
+    emit mesonProcess();
 
-    QByteArray result  = process.readAllStandardOutput();
+    QByteArray result  = process->readAllStandardOutput();
     qDebug() << result;
 
 
@@ -101,20 +94,14 @@ void MesonCall::getTargetInfo()
 {
     const QString args = "introspect --targets /home/nightmare/practice/meson/builddir/";
     QObject *parent = nullptr;
-    Utils::QtcProcess process(parent);
+    Utils::QtcProcess *process = new Utils::QtcProcess(parent);
 
-    process.setCommand(getMesonPath(), args);
-    process.start();
+    process->setCommand(getMesonPath(), args);
+    process->start();
+    emit mesonProcess();
 
-    int res = process.waitForFinished();
 
-    if( !res ) {
-        qDebug() << process.errorString();
-    }
-
-    process.waitForFinished();
-
-    QByteArray output = process.readAllStandardOutput();
+    QByteArray output = process->readAllStandardOutput();
     qDebug() << output;
 
     const QJsonDocument doc = QJsonDocument::fromJson(output);
