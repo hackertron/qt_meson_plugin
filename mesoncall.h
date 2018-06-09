@@ -30,10 +30,14 @@
 #include <QJsonArray>
 #include <QVariantMap>
 #include <QObject>
+#include <utils/qtcprocess.h>
 
 class MesonCall : public QObject
 {
     Q_OBJECT
+
+private:
+    Utils::QtcProcess *process;
 
 public:
     explicit MesonCall(QObject *parent = 0);
