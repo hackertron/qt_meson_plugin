@@ -1,5 +1,4 @@
-include(MesonProjectManager.pri)
-
+include(dependencies.pri)
 
 DEFINES += MESONPROJECTMANAGER_LIBRARY
 
@@ -12,7 +11,6 @@ HEADERS += mesonprojectmanagerplugin.h \
         mesonprojectmanager_global.h \
         mesonprojectmanagerconstants.h \
     mesoncall.h
-
 
 # Qt Creator linking
 
@@ -43,7 +41,7 @@ QTC_LIB_DEPENDS += \
     # nothing here at this time
 
 QTC_PLUGIN_DEPENDS += \
-    coreplugin
+    coreplugin projectexplorer cpptools
 
 QTC_PLUGIN_RECOMMENDS += \
     # optional plugin dependencies. nothing here at this time
@@ -53,5 +51,4 @@ QTC_PLUGIN_RECOMMENDS += \
 include($$IDE_SOURCE_TREE/src/qtcreatorplugin.pri)
 
 DISTFILES += \
-    Meson.json.in \
-    MesonProjectManager.pri
+    dependencies.pri

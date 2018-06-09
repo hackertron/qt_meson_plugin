@@ -22,9 +22,11 @@
 ** be met: https://www.gnu.org/licenses/gpl-3.0.html.
 **
 ****************************************************************************/
+
 #ifndef MESONCALL_H
 #define MESONCALL_H
 
+#include <QObject>
 
 #include <QJsonDocument>
 #include <QJsonArray>
