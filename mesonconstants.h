@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) Jayaditya Gupta <cooljay.gupta@gmail.com>
+** Copyright (C) Filippo Cucchetto <filippocucchetto@gmail.com>
 ** Contact: http://www.qt.io/licensing
 **
 ** This file is part of Qt Creator.
@@ -22,22 +22,18 @@
 ** be met: https://www.gnu.org/licenses/gpl-3.0.html.
 **
 ****************************************************************************/
-#ifndef MESONPROJECT_H
-#define MESONPROJECT_H
+#pragma once
 
-#include <QObject>
-#include <projectexplorer/project.h>
-#include <projectexplorer/projectnodes.h>
 
-class MesonProject : public ProjectExplorer::Project
-{
-    Q_OBJECT
-public:
-    explicit MesonProject(const Utils::FileName &fileName);
 
-signals:
+namespace Constants {
 
-public slots:
-};
 
-#endif // MESONPROJECT_H
+/*******************************************************************************
+ * MIME type
+ ******************************************************************************/
+const char C_MESON_MIMETYPE[] = "text/x-meson";
+const char C_MESON_PROJECT_MIMETYPE[] = "text/x-meson-build";
+
+
+}
